@@ -1,10 +1,10 @@
 name: belong_together
 data:
-  file: data/segmentation_data.tsv
+  file: bbox_data_2.tsv # data/segmentation_data.tsv
   input:
     image: url
     outlines: json
-    targets: bool
+    # targets: bool – Tämä on jäänyt varmaan yli jostain esimerkistä; pidä huoli, että tässä määritellyt arvo-avain parit vastaavat TSV:n sarakkeita
   output:
     result: bool
 
@@ -16,20 +16,20 @@ interface:
   verification: false
 
 actions:
-  on_result:
-    true: aggregate_ds
-    false:
+  on_closed: aggregate_ds # Käytä tässä yhteydessä 'on_closed' toimintoa, joka aggregoi tulokset kun pooli sulkeutuu.
+    # true: aggregate_ds
+    # false:
 
 project:
-  id:
+  # id: Avain-arvo -pari ei voi sisältää vain avainta (id:) – arvo tulkitaan tyhjäksi
   setup:
     public_name: "See if elements in diagrams belong together with other elements in the diagrams"
     public_description: "Look at diagrams from science textbooks and see if highlighted elements in the diagrams belong
     together with some other diagram elements."
-  instructions: ../instructions/belong_together.html
+  instructions: instructions/belong_together.html # Nämä polut tulee määritellä Python-skriptistä "nähtynä"
 
 pool:
-  id:
+  # id: Sama kuin yllä – jätä koko avain-arvo -pari pois, mikäli haluat työkalun luovan uuden poolin
   estimated_time_per_suite: 60
   setup:
     private_name: "Experiment 1, Task 1"
