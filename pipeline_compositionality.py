@@ -30,8 +30,6 @@ with open(cred_file) as cred_f:
         creds = json.loads(cred_f.read())
         tclient = toloka.TolokaClient(creds['token'], creds['mode'])
 
-
-
 ''' CREATE THE TASKS AND PROCESSES IN THE CROWDSOURCING PIPELINE TO GENERATE DESCRIPTIONS OF COMPOSITIONALITY IN DIAGRAMS '''
 
 
@@ -55,9 +53,8 @@ forward_choose = Forward(configuration="yaml_config/forward_choose.yaml",
 
 # Aggregate action that aggregates outputs from belong_together (Task 1) using Dawid-Skene probabilistic model from Crowd-Kit library
 aggregate_ds = Aggregate(configuration="yaml_config/aggregate_ds.yaml",
-                             task=belong_together,
-                             forward=forward_choose)
-
+                         task=belong_together,
+                         forward=forward_choose)
 
 ''' PHASE 4 '''
 # Join elements: Group the chosen diagram element with the original highlighted element and

@@ -12,6 +12,9 @@ interface:
     - point
     - rectangle
     - polygon
+  labels:
+    source: "Examine this element"
+    target: "Other elements"
   verification: false
 
 # Tämä ohjaa tehtävän pisteitä ja polygoneja käsittelevälle taskille
@@ -20,9 +23,8 @@ interface:
 
 project:
   setup:
-    public_name: "Choose elements in science diagrams that belong together"
-    public_description: "Look at diagrams from science textbooks and choose which elements in those diagrams
-    belong together."
+    public_name: "Examine diagrams from science textbooks"
+    public_description: "Look at diagrams from science textbooks and choose diagram elements that belong together"
   instructions: instructions/choose_element.html
 
 pool:
@@ -41,5 +43,9 @@ pool:
     training_tasks_count: 0
   filter:
     client_type:
-      - TOLOKA_APP
+      # - TOLOKA_APP
       - BROWSER
+
+quality_control:
+  speed_quality_balance:
+    top_percentage_by_quality: 10

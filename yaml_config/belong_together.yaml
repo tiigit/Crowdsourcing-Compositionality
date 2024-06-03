@@ -12,6 +12,10 @@ interface:
   labels:
     true: "Yes"
     false: "No"
+  segmentation:
+    labels:
+      source: "Examine this element"
+      target: "Other elements"
   verification: false
 
 actions:
@@ -19,9 +23,8 @@ actions:
 
 project:
   setup:
-    public_name: "See if elements in science diagrams belong together with other elements in the diagrams"
-    public_description: "Look at diagrams from science textbooks and see if elements in the diagrams belong
-    together with other diagram elements."
+    public_name: "Examine diagrams from science textbooks"
+    public_description: "Look at diagrams from science textbooks and examine if diagram elements belong together."
   instructions: instructions/belong_together.html
 
 pool:
@@ -42,3 +45,7 @@ pool:
     client_type:
       - TOLOKA_APP
       - BROWSER
+
+quality_control:
+  speed_quality_balance:
+    top_percentage_by_quality: 10
