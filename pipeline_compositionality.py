@@ -2,6 +2,7 @@
 
 from abulafia.actions import Forward, Aggregate
 from abulafia.task_specs import TaskSequence, SegmentationClassification, ImageSegmentation
+from custom_processor import JoinBBoxes
 import argparse
 import json
 import toloka.client as toloka
@@ -11,12 +12,13 @@ import toloka.client as toloka
 ap = argparse.ArgumentParser()
 
 # Add argument for input
-ap.add_argument("-c", "--creds", required=True,
-                                help="Path to a JSON file that contains Toloka credentials. "
-                                     "The file should have two keys: 'token' and 'mode'. "
-                                     "The key 'token' should contain the Toloka API key, whereas "
-                                     "the key 'mode' should have the value 'PRODUCTION' or 'SANDBOX' "
-                                     "that defines the environment in which the pipeline should be run.")
+ap.add_argument("-c", "--creds",
+                required=True,
+                help="Path to a JSON file that contains Toloka credentials. "
+                     "The file should have two keys: 'token' and 'mode'. "
+                     "The key 'token' should contain the Toloka API key, whereas "
+                     "the key 'mode' should have the value 'PRODUCTION' or 'SANDBOX' "
+                     "that defines the environment in which the pipeline should be run.")
 
 # Parse the arguments
 args = vars(ap.parse_args())
@@ -41,8 +43,6 @@ belong_together = SegmentationClassification(configuration="yaml_config/belong_t
 # Task 2: Choose the diagram element which belongs together with the element from Task 1 (using the annotation tool "point")
 choose_element = ImageSegmentation(configuration="yaml_config/choose_element.yaml", client=tclient)
 
-
-
 ''' PHASE 2 '''
 ''' Aggregate and Forward Actions needed to process outputs from Task 1 (Phase 1) '''
 
@@ -59,11 +59,9 @@ aggregate_ds = Aggregate(configuration="yaml_config/aggregate_ds.yaml",
 ''' PHASE 4 '''
 # Join elements: Group the chosen diagram element with the original highlighted element and
 # forward those grouped elements to belong_together (Task 1, Phase 1) to reprocessed
-
-
-
-
-
+join_boxes = JoinBBoxes(configuration="yaml_config/join_elements.yaml",
+                        task=choose_element,
+                        target=belong_together)
 
 
 ''' CONSTRUCT THE CROWDSOURCING PIPELINE WITH ALL TASKS, ACTIONS AND PROCESSES '''
@@ -73,9 +71,10 @@ pipe = TaskSequence(sequence=[belong_together,          # Phase 1. Toloker Task 
                                                         # Phase 2.
                               aggregate_ds,                     # --> Aggregate outputs of belong_together using Dawid-Skene probabilistic model
                               forward_choose,                   # --> Forward outputs to choose_element (Phase 3)
-                              choose_element],          # Phase 3. Toloker Task 2 (Choose the element which belongs together with the highlighted element/elements.)
+                              choose_element,
+                              join_boxes],              # Phase 3. Toloker Task 2 (Choose the element which belongs together with the highlighted element/elements.)
                                                         # Phase 4. Python code that joins the chosen elements together and forwards them back to belong_together (Phase 1)
-                              client=tclient)
+                    client=tclient)
 
 
 # Start the task sequence; create the tasks on Toloka
