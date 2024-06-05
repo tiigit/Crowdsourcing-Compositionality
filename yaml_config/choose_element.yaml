@@ -7,7 +7,7 @@ data:
     outlines: json
 
 interface:
-  prompt: "Which diagram element highlighted in green belongs together with the element(s) highlighted in red?"
+  prompt: "Place a point within each green part that belongs together with the red part."
   tools:
     - point
     - rectangle
@@ -17,9 +17,9 @@ interface:
     target: "Other elements"
   verification: false
 
-# Tämä ohjaa tehtävän pisteitä ja polygoneja käsittelevälle taskille
-# actions:
-#   on_submitted: bbox_processor
+actions:
+  on_closed: join_boxes
+  on_rejected: choose_element
 
 project:
   setup:
@@ -33,7 +33,7 @@ pool:
     private_name: "Choose element"
     reward_per_assignment: 0.2
     assignment_max_duration_seconds: 600
-    auto_accept_solutions: true
+    auto_accept_solutions: false
   defaults:
     default_overlap_for_new_tasks: 1
     default_overlap_for_new_task_suites: 1
