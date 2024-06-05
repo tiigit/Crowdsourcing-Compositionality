@@ -1,0 +1,51 @@
+name: belong_together
+data:
+  file: bbox_data_2.tsv
+  input:
+    image: url
+    outlines: json
+  output:
+    result: bool
+
+interface:
+  prompt: "Does the diagram element(s) highlighted in red belong together with some (any) other element in the diagram?"
+  labels:
+    true: "Yes"
+    false: "No"
+  segmentation:
+    labels:
+      source: "Examine this element"
+      target: "Other elements"
+  verification: false
+
+actions:
+  on_closed: aggregate_ds
+
+project:
+  setup:
+    public_name: "Examine diagrams from science textbooks"
+    public_description: "Look at diagrams from science textbooks and examine if diagram elements belong together."
+  instructions: instructions/belong_together.html
+
+pool:
+  estimated_time_per_suite: 60
+  setup:
+    private_name: "Belong together"
+    reward_per_assignment: 0.2
+    assignment_max_duration_seconds: 600
+    auto_accept_solutions: true
+  defaults:
+    default_overlap_for_new_tasks: 3
+    default_overlap_for_new_task_suites: 1
+  mixer:
+    real_tasks_count: 3
+    golden_tasks_count: 0
+    training_tasks_count: 0
+  filter:
+    client_type:
+      - TOLOKA_APP
+      - BROWSER
+
+quality_control:
+  speed_quality_balance:
+    top_percentage_by_quality: 10
