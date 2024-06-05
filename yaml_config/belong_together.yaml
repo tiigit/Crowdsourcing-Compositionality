@@ -1,6 +1,6 @@
 name: belong_together
 data:
-  file: bbox_data.tsv
+  file: bbox_data_2.tsv
   input:
     image: url
     outlines: json
@@ -22,6 +22,7 @@ actions:
   on_closed: aggregate_ds
 
 project:
+  id: 163513
   setup:
     public_name: "Examine diagrams from science textbooks"
     public_description: "Look at diagrams from science textbooks and examine if diagram elements belong together."

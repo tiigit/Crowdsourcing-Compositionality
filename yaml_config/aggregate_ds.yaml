@@ -1,2 +1,5 @@
 name: aggregate_ds
+data:
+  input: outlines
+  output: result
 method: dawid_skene

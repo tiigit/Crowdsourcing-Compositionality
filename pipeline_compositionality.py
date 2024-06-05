@@ -2,7 +2,7 @@
 
 from abulafia.actions import Forward, Aggregate
 from abulafia.task_specs import TaskSequence, SegmentationClassification, ImageSegmentation
-from custom_processor import JoinBBoxes
+from custom_processor import JoinBBoxes, Bucket
 import argparse
 import json
 import toloka.client as toloka
@@ -46,10 +46,13 @@ choose_element = ImageSegmentation(configuration="yaml_config/choose_element.yam
 ''' PHASE 2 '''
 ''' Aggregate and Forward Actions needed to process outputs from Task 1 (Phase 1) '''
 
+# Define a Bucket that holds the final output
+bucket = Bucket(configuration="yaml_config/bucket.yaml")
+
 # Forward action that forwards all outputs in belong_together (Task 1) with output "True" to choose_element (Task 2, Phase 3)
 forward_choose = Forward(configuration="yaml_config/forward_choose.yaml",
                          client=tclient,
-                         targets=[choose_element])
+                         targets=[choose_element, bucket])
 
 # Aggregate action that aggregates outputs from belong_together (Task 1) using Dawid-Skene probabilistic model from Crowd-Kit library
 aggregate_ds = Aggregate(configuration="yaml_config/aggregate_ds.yaml",
@@ -72,7 +75,8 @@ pipe = TaskSequence(sequence=[belong_together,          # Phase 1. Toloker Task 
                               aggregate_ds,                     # --> Aggregate outputs of belong_together using Dawid-Skene probabilistic model
                               forward_choose,                   # --> Forward outputs to choose_element (Phase 3)
                               choose_element,
-                              join_boxes],              # Phase 3. Toloker Task 2 (Choose the element which belongs together with the highlighted element/elements.)
+                              join_boxes,
+                              bucket],                  # Phase 3. Toloker Task 2 (Choose the element which belongs together with the highlighted element/elements.)
                                                         # Phase 4. Python code that joins the chosen elements together and forwards them back to belong_together (Phase 1)
                     client=tclient)
 

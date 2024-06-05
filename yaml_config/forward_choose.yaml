@@ -2,4 +2,4 @@ name: forward_choose
 data: result
 on_result:
   true: choose_element
-  false:
+  false: bucket
