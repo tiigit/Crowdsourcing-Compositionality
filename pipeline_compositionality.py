@@ -32,24 +32,24 @@ with open(cred_file) as cred_f:
         creds = json.loads(cred_f.read())
         tclient = toloka.TolokaClient(creds['token'], creds['mode'])
 
+
 ''' CREATE THE TASKS AND PROCESSES IN THE CROWDSOURCING PIPELINE TO GENERATE DESCRIPTIONS OF COMPOSITIONALITY IN DIAGRAMS '''
 
-
 ''' PHASE 1 '''
-# Task 1: Check if a diagram element belongs together with any other diagram element (using binary classification True/False)
+# Task 1: See if a diagram element(s) belongs together with any other diagram element (using binary classification True/False)
 belong_together = SegmentationClassification(configuration="yaml_config/belong_together.yaml", client=tclient)
 
 ''' PHASE 3 '''
-# Task 2: Choose the diagram element which belongs together with the element from Task 1 (using the annotation tool "point")
+# Task 2: Choose the diagram element(s) which belongs together with the element(s) from Task 1 (using the "point" annotation tool)
 choose_element = ImageSegmentation(configuration="yaml_config/choose_element.yaml", client=tclient)
 
 ''' PHASE 2 '''
-''' Aggregate and Forward Actions needed to process outputs from Task 1 (Phase 1) '''
+''' Create Aggregate and Forward Actions needed to process outputs from Task 1 (Phase 1) '''
 
 # Define a Bucket that holds the final output
 bucket = Bucket(configuration="yaml_config/bucket.yaml")
 
-# Forward action that forwards all outputs in belong_together (Task 1) with output "True" to choose_element (Task 2, Phase 3)
+# Forward action that forwards all outputs in belong_together (Task 1) with output "True" to choose_element (Task 2)
 forward_choose = Forward(configuration="yaml_config/forward_choose.yaml",
                          client=tclient,
                          targets=[choose_element, bucket])
@@ -60,8 +60,8 @@ aggregate_ds = Aggregate(configuration="yaml_config/aggregate_ds.yaml",
                          forward=forward_choose)
 
 ''' PHASE 4 '''
-# Join elements: Group the chosen diagram element with the original highlighted element and
-# forward those grouped elements to belong_together (Task 1, Phase 1) to reprocessed
+# Join elements: Group the chosen diagram element(s) from Task 2 together with the original element(s)
+# Forward those grouped elements to belong_together (Task 1) to be reprocessed
 join_boxes = JoinBBoxes(configuration="yaml_config/join_elements.yaml",
                         task=choose_element,
                         target=belong_together)
@@ -70,14 +70,13 @@ join_boxes = JoinBBoxes(configuration="yaml_config/join_elements.yaml",
 ''' CONSTRUCT THE CROWDSOURCING PIPELINE WITH ALL TASKS, ACTIONS AND PROCESSES '''
 
 # Add the task into a pipeline
-pipe = TaskSequence(sequence=[belong_together,          # Phase 1. Toloker Task 1 (Does highlighted element/elements belong together with any other diagram element?)
+pipe = TaskSequence(sequence=[belong_together,          # Phase 1. Toloker Task 1 (Does the red element belong together with some green elements?)
                                                         # Phase 2.
                               aggregate_ds,                     # --> Aggregate outputs of belong_together using Dawid-Skene probabilistic model
                               forward_choose,                   # --> Forward outputs to choose_element (Phase 3)
-                              choose_element,
-                              join_boxes,
-                              bucket],                  # Phase 3. Toloker Task 2 (Choose the element which belongs together with the highlighted element/elements.)
-                                                        # Phase 4. Python code that joins the chosen elements together and forwards them back to belong_together (Phase 1)
+                              choose_element,           # Phase 3. Toloker Task 2 (Choose the green elements which belong together with the red elements.)
+                              join_boxes,               # Phase 4. Joins the chosen elements together and forwards them back to belong_together (Phase 1)
+                              bucket],                  
                     client=tclient)
 
 

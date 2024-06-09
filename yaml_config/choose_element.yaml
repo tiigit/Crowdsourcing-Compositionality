@@ -7,14 +7,14 @@ data:
     outlines: json
 
 interface:
-  prompt: "Use the point tool to place a point in each green part that forms a group with the red part."
+  prompt: "Use the point labeling tool (R) found on the left sidebar and place a point within each green part that belongs together with the red part(s)."
   tools:
     - point
     - rectangle
     - polygon
   labels:
-    source: "Examine this element"
-    target: "Other elements"
+    source: "Examine this part"
+    target: "Other parts"
   verification: false
 
 actions:
@@ -25,7 +25,7 @@ project:
   id: 163514
   setup:
     public_name: "Examine diagrams from science textbooks"
-    public_description: "Look at diagrams from science textbooks and choose diagram elements that belong together."
+    public_description: "Look at diagrams from science textbooks and choose diagram parts that belong together."
   instructions: instructions/choose_element.html
 
 pool:
