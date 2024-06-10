@@ -19,7 +19,9 @@ The data used in the study is a couple of smaller sample sets taken from the mul
 
 `instructions/`: contains HTML files used for constructing and visualizing the instructions for the crowdsourcing tasks
 
-`trial_dataset.tsv`: the trial dataset of 10 diagrams used for the trial run of the experiment
+`bbox_data_2.tsv`: initial test dataset for running the pipeline in the Toloka Sandbox (before putting into production)
+
+`trial_dataset.tsv`: the trial dataset of 10 diagrams used for the trial run of the experiment (put into production)
 
 `sample_dataset.tsv`: the sample dataset of 100 diagrams used in the final experiment
 
