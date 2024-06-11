@@ -7,19 +7,23 @@ data:
     outlines: json
 
 interface:
-  prompt: "Use the point labeling tool (R) found on the left sidebar and place a point within each green part that belongs together with the red part(s)."
+  prompt: "Read the instructions from the upper right corner before doing the task!\n\n
+
+  Which green part(s) in the diagram belongs together with the red part(s)?\n
+  'Belonging together' means that some smaller parts of the diagram together form a meaningful bigger part or whole within the diagram.\n\n
+
+  Select the point labeling tool [R] on the left sidebar.\n
+  Place a point by clicking on the green parts of the diagram that you wish to choose.\n\n
+
+  Only place a point within the chose parts: editing or removing outlines for any part will result in rejected work!"
   tools:
     - point
     - rectangle
     - polygon
   labels:
-    source: "Examine this part"
-    target: "Other parts"
+    source: "Examine this (red) part"
+    target: "Choose from these (green) parts"
   verification: false
-
-actions:
-  on_closed: join_boxes
-  on_rejected: choose_element
 
 project:
   id: 163514
