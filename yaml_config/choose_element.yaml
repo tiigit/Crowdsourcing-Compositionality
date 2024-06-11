@@ -15,7 +15,7 @@ interface:
   Select the point labeling tool [R] on the left sidebar.\n
   Place a point by clicking on the green parts of the diagram that you wish to choose.\n\n
 
-  Only place a point within the chose parts: editing or removing outlines for any part will result in rejected work!"
+  Only place a point within the chosen green parts: editing or removing outlines for any part will result in rejected work!"
   tools:
     - point
     - rectangle
