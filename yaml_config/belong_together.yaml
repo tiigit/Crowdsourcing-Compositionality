@@ -1,6 +1,6 @@
 name: belong_together
 data:
-  file: trial_dataset_5_s-32.tsv
+  file: trial_dataset_2.tsv
   input:
     image: url
     outlines: json
@@ -8,20 +8,14 @@ data:
     result: bool
 
 interface:
-  prompt: "Read the instructions from the upper right corner before doing the task!\n\n
-
-  Does the red part(s) of the diagram belong together with some of the green part(s)?\n
-  'Belonging together' means that some smaller parts of the diagram together form a meaningful bigger part or whole within the diagram.\n\n
-
-  If the red part belongs together with some part(s) highlighted in green, answer Yes.\n
-  If the red part does not belong together with any part highlighted in green, answer No."
+  prompt: "Does the red part(s) in the diagram belong together with some of the green part(s)?"
   labels:
     true: "Yes"
     false: "No"
   segmentation:
     labels:
-      source: "Examine this (red) part"
-      target: "Other (green) parts"
+      source: "Red"
+      target: "Green"
   verification: false
 
 actions:
@@ -33,6 +27,22 @@ project:
     public_name: "Examine diagrams from science textbooks"
     public_description: "Look at diagrams from science textbooks and examine if diagram parts belong together."
   instructions: instructions/belong_together.html
+
+# training:
+#   setup:
+#     private_name: Training for belong together
+#     shuffle_tasks_in_task_suite: false
+#     assignment_max_duration_seconds: 600
+#     training_tasks_in_task_suite_count: 5
+#     retry_training_after_days: 1
+#     inherited_instructions: true
+#   data:
+#     file: belong_together_training.tsv
+#     input:
+#       image: url
+#       outlines: json
+#     output:
+#       result: bool
 
 pool:
   estimated_time_per_suite: 60
@@ -48,6 +58,10 @@ pool:
     real_tasks_count: 3
     golden_tasks_count: 0
     training_tasks_count: 0
+  # training:
+  #   training_passing_skill_value: 70
+  # skill:
+  #   id: 
   filter:
     client_type:
       - TOLOKA_APP
