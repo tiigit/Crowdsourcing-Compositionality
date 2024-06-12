@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from decimal import Decimal
 from wasabi import Printer
 from abulafia.functions import *
 from shapely.geometry import Polygon, Point, MultiPolygon
@@ -8,10 +9,18 @@ from toloka.streaming.event import AssignmentEvent
 import pandas as pd
 import toloka.client as toloka
 import copy
+import json
 
 # Set up Printer
 msg = Printer(pretty=True, timestamp=True, hide_animation=True)
 
+# Set up custom JSON encoder
+
+class DecimalEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Decimal):
+            return float(obj)
+        return super().default(obj)
 
 class Bucket:
     """
@@ -29,13 +38,13 @@ class Bucket:
 
         # Each incoming object is a dictionary
         self.data.append({'image': event['input_data']['image'],
-                          'ai2d_ids': event['input_data']['outlines'][0]['ai2d_id']})
+                          'ai2d_ids': event['input_data']['outlines'][0]['ai2d_id'],
+                          'outlines': json.dumps(event['input_data']['outlines'], cls=DecimalEncoder)})
 
         df = pd.DataFrame(self.data)
 
         df.to_csv(f'{self.conf["output_file"]}.tsv', sep='\t', header=True, index=False)
         msg.good('Wrote data from bucket to disk ...')
-
 
 
 class JoinBBoxes:
