@@ -8,14 +8,20 @@ data:
     result: bool
 
 interface:
-  prompt: "Does the red part(s) belong together with some part(s) marked in green?"
+  prompt: "Read the instructions from the upper right corner before doing the task!\n\n
+
+  Does the red part(s) of the diagram belong together with some of the green part(s)?\n
+  'Belonging together' means that some smaller parts of the diagram together form a meaningful bigger part or whole within the diagram.\n\n
+
+  If the red part belongs together with some part(s) highlighted in green, answer Yes.\n
+  If the red part does not belong together with any part highlighted in green, answer No."
   labels:
     true: "Yes"
     false: "No"
   segmentation:
     labels:
-      source: "Examine this part"
-      target: "Other parts"
+      source: "Examine this (red) part"
+      target: "Other (green) parts"
   verification: false
 
 actions:
