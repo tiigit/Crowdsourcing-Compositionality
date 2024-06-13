@@ -1,5 +1,6 @@
 name: choose_element
 data:
+  file: trial_dataset_5_s-11-ai2d.tsv
   input:
     image: url
     outlines: json

@@ -1,6 +1,6 @@
 name: belong_together
 data:
-  file: trial_dataset_2.tsv
+  file: trial_dataset_5_s-11-ai2d.tsv
   input:
     image: url
     outlines: json
@@ -30,7 +30,7 @@ project:
 
 training:
   setup:
-    private_name: Training for belong together
+    private_name: Training for classification
     shuffle_tasks_in_task_suite: false
     assignment_max_duration_seconds: 600
     training_tasks_in_task_suite_count: 5
