@@ -8,7 +8,7 @@ data:
     result: bool
 
 interface:
-  prompt: "<b>Answer the question</b>: Does the red part belong together with some green part(s)?"
+  prompt: "Answer the question: Does the red part belong together with some green part(s)?"
   labels:
     true: "Yes"
     false: "No"
@@ -34,10 +34,9 @@ training:
     shuffle_tasks_in_task_suite: false
     assignment_max_duration_seconds: 600
     training_tasks_in_task_suite_count: 5
-    retry_training_after_days: 1
     inherited_instructions: true
   data:
-    file: belong_together_training.tsv
+    file: training_data/training_data_belong_together.tsv
     input:
       image: url
       outlines: json

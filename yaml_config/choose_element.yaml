@@ -7,8 +7,8 @@ data:
     outlines: json
 
 interface:
-  prompt: "<b>Answer the question:</b> Which green part(s) belong together with the red part?\n
-  Then select the point labeling tool [R] and <b>place a point</b> in the green part(s) that belong together with the red part."
+  prompt: "Answer the question: Which green part(s) belong together with the red part?\n
+  Then select the point labeling tool [R] and place a point in the green part(s) that belong together with the red part."
   tools:
     - point
     - rectangle
@@ -28,7 +28,7 @@ project:
 pool:
   estimated_time_per_suite: 60
   setup:
-    private_name: "Choose element"
+    private_name: "Choose element #3"
     reward_per_assignment: 0.2
     assignment_max_duration_seconds: 600
     auto_accept_solutions: false
@@ -48,8 +48,6 @@ pool:
       - 141409: 70
 
 quality_control:
-  speed_quality_balance:
-    top_percentage_by_quality: 10
   redo_banned: true
   skipped_assignments:
     count: 3
