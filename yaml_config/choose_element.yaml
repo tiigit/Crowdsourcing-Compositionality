@@ -1,6 +1,5 @@
 name: choose_element
 data:
-  file: trial_dataset_5_s-11-ai2d.tsv
   input:
     image: url
     outlines: json
@@ -24,7 +23,6 @@ actions:
   on_rejected: choose_element
 
 project:
-  id: 159872
   setup:
     public_name: "Examine diagrams from science textbooks"
     public_description: "Look at diagrams from science textbooks and choose diagram parts that belong together."
