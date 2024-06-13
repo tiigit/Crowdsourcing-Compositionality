@@ -1,6 +1,6 @@
 name: belong_together
 data:
-  file: trial_dataset_2.tsv
+  file: trial_dataset.tsv
   input:
     image: url
     outlines: json
