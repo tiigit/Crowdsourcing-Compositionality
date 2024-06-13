@@ -7,8 +7,8 @@ data:
     outlines: json
 
 interface:
-  prompt: "Which green part(s) in the diagram belongs together with the red part(s)?\n
-  Select the point labeling tool [R] on the left sidebar. Place a point by clicking on those green parts that you wish to choose."
+  prompt: "<b>Answer the question:</b> Which green part(s) belong together with the red part?\n
+  Then select the point labeling tool [R] and <b>place a point</b> in the green part(s) that belong together with the red part."
   tools:
     - point
     - rectangle
@@ -44,7 +44,20 @@ pool:
       - BROWSER
     languages:
       - EN
+    skill:
+      - 141409: 70
 
 quality_control:
   speed_quality_balance:
     top_percentage_by_quality: 10
+  redo_banned: true
+  skipped_assignments:
+    count: 3
+    ban_duration: 30
+    ban_units: MINUTES
+  fast_responses:
+    history_size: 5
+    count: 3
+    threshold: 10
+    ban_duration: 2
+    ban_units: DAYS
