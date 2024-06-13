@@ -1,6 +1,6 @@
 name: belong_together
 data:
-  file: trial_dataset_5-s-11-ai2d.tsv
+  file: trial_dataset_5_s-11-ai2d.tsv
   input:
     image: url
     outlines: json
@@ -22,6 +22,7 @@ actions:
   on_closed: aggregate_ds
 
 project:
+  id: 159890
   setup:
     public_name: "Examine diagrams from science textbooks"
     public_description: "Look at diagrams from science textbooks and examine if diagram parts belong together."
