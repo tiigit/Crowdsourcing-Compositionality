@@ -15,14 +15,18 @@ The data used in the study is a couple of smaller sample sets taken from the mul
 
 `pipeline_compositionality.py`: a pipeline used for creating the crowdsourcing tasks on Toloka
 
+`custom_processor.py`: an additional new component which was needed to enable joining diagram elements together (this component and the "Join Elements" phase was built and implemented to the pipeline by my supervisor Dr. Tuomo Hiippala)
+
 `yaml_config/`: contains YAML configuration files used for creating task objects and actions needed in the pipeline
 
 `instructions/`: contains HTML files used for constructing and visualizing the instructions for the crowdsourcing tasks
 
+`training_data/`: contains the AI2D diagram images and the training dataset in TSV format used in belong_together task
+
 `bbox_data_2.tsv`: initial test dataset for running the pipeline in the Toloka Sandbox (before putting into production)
 
-`trial_dataset.tsv`: the trial dataset of 10 diagrams used for the trial run of the experiment (put into production)
+`trial_dataset.tsv`: the trial dataset of 10 diagrams used for the 1st trial run of the experiment (put into production)
 
-`sample_dataset.tsv`: the sample dataset of 100 diagrams used in the final experiment
+`trial_dataset_5_s-11-ai2d.tsv`: the trial dataset of 5 diagrams used for the 2nd trial run of the experiment (put into production)
 
-`custom_processor.py`: an additional new component which was needed to enable joining diagram elements together (this component and the "Join Elements" phase was built and implemented to the pipeline by my supervisor Dr. Tuomo Hiippala)
+<!-- `sample_dataset.tsv`: the sample dataset of 100 diagrams used in the final experiment -->
