@@ -79,7 +79,5 @@ pipe = TaskSequence(sequence=[belong_together,          # Phase 1. Toloker Task 
                               bucket],                  
                     client=tclient)
 
-exit()
-
 # Start the task sequence; create the tasks on Toloka
 pipe.start()
