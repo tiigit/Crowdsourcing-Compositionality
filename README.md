@@ -6,16 +6,16 @@ The thesis focuses on constructing and testing a crowdsourcing pipeline aiming t
 
 The thesis experiment was conducted using a University of Helsinki based command line tool *abulafia* [(Hiippala et al., 2022)](https://aclanthology.org/2022.latechclfl-1.2/ "Developing a tool for fair and reproducible use of paid crowdsourcing in the digital humanities") that works with [Toloka crowdsourcing platform](https://toloka.ai/). Thus, most of the code used in this experiment was written by modifying and reconstructing already existing code and using scripts or tools found at https://github.com/thiippal/abulafia and https://github.com/thiippal/toloka_tools.
 
-The data used in the study is a couple of smaller sample sets taken from the multimodal diagram dataset AI2D-RST [(Hiippala et al., 2021)](https://doi.org/10.1007/s10579-020-09517-1 "AI2D-RST: a multimodal corpus of 1000 primary school science diagrams"). The AI2D-RST corpus entails 1000 science-related diagrams as well as their multi-level annotations. The AI2D-RST dataset and related resources can be found at http://urn.fi/urn:nbn:fi:lb-2020060101 and https://github.com/thiippal/AI2D-RST.
+The datasets used in the study are a couple of smaller sample sets taken from the multimodal diagram dataset AI2D-RST [(Hiippala et al., 2021)](https://doi.org/10.1007/s10579-020-09517-1 "AI2D-RST: a multimodal corpus of 1000 primary school science diagrams"). The AI2D-RST corpus entails 1000 science-related diagrams as well as their multi-level annotations. The AI2D-RST dataset and related resources can be found at http://urn.fi/urn:nbn:fi:lb-2020060101 and https://github.com/thiippal/AI2D-RST. AI2D-RST corpus is based on *The Allen Institute for Artificial Intelligence Diagrams Dataset* (AI2D) [(Kembhavi et al., 2016)](https://doi.org/10.1007/978-3-319-46493-0_15) which can be found at https://prior.allenai.org/projects/diagram-understanding.
 
 
 ### Codebase:
 
-`pipeline_for_compositionality.png`: visualization of the pipeline as a whole
+`pipeline_for_compositionality.png`: visualization of the crowdsourcing pipeline used in this experiment
 
-`pipeline_compositionality.py`: a pipeline used for creating the crowdsourcing tasks on Toloka
+`pipeline_compositionality.py`: the Python script used for creating the crowdsourcing tasks on Toloka
 
-`custom_processor.py`: an additional new component which was needed to enable joining diagram elements together (this component and the "Join Elements" phase was built and implemented to the pipeline by my supervisor Dr. Tuomo Hiippala)
+`custom_processor.py`: an additional new component which was needed to enable joining diagram elements together (note: this component and the "Join Elements" phase was built and implemented to the pipeline by my supervisor Dr. Tuomo Hiippala)
 
 `yaml_config/`: contains YAML configuration files used for creating task objects and actions needed in the pipeline
 
@@ -23,10 +23,6 @@ The data used in the study is a couple of smaller sample sets taken from the mul
 
 `training_data/`: contains the AI2D diagram images and the training dataset in TSV format used in belong_together task
 
-`bbox_data_2.tsv`: initial test dataset for running the pipeline in the Toloka Sandbox (before putting into production)
+`trial_data_run_1/`: contains the AI2D diagram images and the trial dataset of 10 diagrams (trial_dataset_10.tsv) used in the 1st trial run of the experiment
 
-`trial_dataset.tsv`: the trial dataset of 10 diagrams used for the 1st trial run of the experiment (put into production)
-
-`trial_dataset_5_s-11-ai2d.tsv`: the trial dataset of 5 diagrams used for the 2nd trial run of the experiment (put into production)
-
-<!-- `sample_dataset.tsv`: the sample dataset of 100 diagrams used in the final experiment -->
+`trial_data_run_2/`: contains the AI2D diagram images and the trial dataset of 5 diagrams (trial_dataset_5_s-11-ai2d.tsv) used in the 2nd trial run of the experiment
