@@ -21,8 +21,8 @@ The datasets used in the study are a couple of smaller sample sets taken from th
 
 `instructions/`: contains HTML files used for constructing and visualizing the instructions for the crowdsourcing tasks
 
-`training_data/`: contains the AI2D diagram images and the training dataset in TSV format used in belong_together task
+`test_data/`: contains the datasets for initial test runs of the experiment
 
-`trial_data_run_1/`: contains the AI2D diagram images and the trial dataset of 10 diagrams (trial_dataset_10.tsv) used in the 1st trial run of the experiment
+`training_data/`: contains the AI2D diagram images and the training dataset used in belong_together (Task 1)
 
-`trial_data_run_2/`: contains the AI2D diagram images and the trial dataset of 5 diagrams (trial_dataset_5_s-11-ai2d.tsv) used in the 2nd trial run of the experiment
+`trial_data/`: contains the AI2D diagram images and the trial dataset of 5 diagrams (trial_dataset_5_s-11-ai2d.tsv) used in the final trial run of the experiment
